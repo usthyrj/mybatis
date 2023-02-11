@@ -48,6 +48,42 @@
         实际上就是InputStream resourceAsStream =
         ClassLoader.getSystemClassLoader().getResourceAsStream("mybatis-config.xml");
 
+6. 关于MyBatis事务管理机制（深度剖析）
+    在mybatis-config.xml中可以通过以下配置进行MyBatis的事务管理
+        <transactionManager type="JDBC"/>
+        type属性的值有两个[JDBC|MANAGED]
+        在mybatis中提供两种事务管理机制
+        JDBC
+            mybatis自己管理事务，自己采用原生的jdbc代码去管理
+                conn.setAutoCommit(false);开启事务
+                ...业务处理...
+                conn.commit()手动提交;
+            若执行以下代码
+            SqlSession sqlSession = sqlSessionFactory.openSession(true);
+            则自动提交， 表示没有事务，每一条DML语句都会提交一次
+        MANAGED
+            mybatis不再进行事务管理了，交给其他容器负责，例如spring
+            若当前情况下事务配置为MANAGED则事务是没人管的
+
+    JDBC中的事务，如果未执行 conn.setAutoCommit(false);则默认autoCommit是true
+
+7. MyBatis集成日志组件，让我们调试起来更方便
+    mybatis常见的集成日志组件有哪些？
+        SLF4J | LOG4J | LOG4J2 | STDOUT_LOGGING
+        其中STDOUT_LOGGING是标准日志，MyBatis已经实现了这种标准日志只需开启即可使用<settings>标签进行开启
+        mybatis configuration的标签内有顺序。
+        log4j、log4j2、logback都是同一个作者
+
+    集成logback框架（使用1.2版本的logback能与配置文件配套）
+        logback日志框架是集成slf4j标准。（沙拉疯：日志门面， 日志标准）
+        1. 引入logback依赖
+        2. 引入logback所需的配置文件
+            文件名称必须叫做logback.xml或logback-test.xml, 不能改名
+            配置文件必须放到类的根路径下
+
+
+
+
 
 
 

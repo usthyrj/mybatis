@@ -4,6 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <properties resource="jdbc.properties"/>
+    <!--<settings>
+&lt;!&ndash;        <setting name="logImpl" value="STDOUT_LOGGING"/>&ndash;&gt;
+        <setting name="logImpl" value="SLF4J"/>
+    </settings>-->
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC"/>
@@ -17,8 +21,8 @@
     </environments>
     <mappers>
         <!--resource属性是从类路径中加载资源， url属性-->
-<!--        <mapper resource="com/CarMapper2.xml"/>-->
+        <mapper resource="CarMapper.xml"/>
         <!--url属性是从绝对路径加载资源,前面加file:///，不加也不报错-->
-        <mapper url="file:///C:/virtualD/IdeaProject/mybatis/mybatis-001-introduction/src/main/resources/com/CarMapper2.xml"/>
+<!--        <mapper url="file:///C:/virtualD/IdeaProject/mybatis/mybatis-001-introduction/src/main/resources/com/CarMapper2.xml"/>-->
     </mappers>
 </configuration>
